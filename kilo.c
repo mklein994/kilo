@@ -37,9 +37,9 @@ void enableRawMode() {
   if (tcgetattr(STDIN_FILENO, &raw) == -1)
     die("tcgetattr");
 
-  raw.c_lflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-  raw.c_lflag &= ~(OPOST);
-  raw.c_lflag |= (CS8);
+  raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
+  raw.c_oflag &= ~(OPOST);
+  raw.c_cflag |= (CS8);
   raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
   raw.c_cc[VMIN] = 0;
   raw.c_cc[VTIME] = 1;
