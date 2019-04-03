@@ -71,10 +71,6 @@ void enableRawMode() {
   atexit(disableRawMode);
 
   struct termios raw = E.orig_termios;
-
-  if (tcgetattr(STDIN_FILENO, &raw) == -1)
-    die("tcgetattr");
-
   raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
   raw.c_oflag &= ~(OPOST);
   raw.c_cflag |= (CS8);
