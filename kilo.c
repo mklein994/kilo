@@ -172,7 +172,6 @@ int getCursorPosition(int *rows, int *cols) {
       break;
     i++;
   }
-
   buf[i] = '\0';
 
   if (buf[0] != '\x1b' || buf[1] != '[')
@@ -213,11 +212,9 @@ int editorRowCxToRx(erow *row, int cx) {
 void editorUpdateRow(erow *row) {
   int tabs = 0;
   int j;
-
-  for (j = 0; j < row->size; j++) {
+  for (j = 0; j < row->size; j++)
     if (row->chars[j] == '\t')
       tabs++;
-  }
 
   free(row->render);
   row->render = malloc(row->size + tabs * (KILO_TAB_STOP - 1) + 1);
