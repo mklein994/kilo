@@ -317,15 +317,15 @@ void editorUpdateSyntax(erow *row) {
 int editorSyntaxToColor(int hl) {
   switch (hl) {
   case HL_COMMENT:
-    return 36;
+    return 36; // cyan
   case HL_STRING:
-    return 35;
+    return 35; // magenta
   case HL_NUMBER:
-    return 31;
+    return 31; // red
   case HL_MATCH:
-    return 34;
+    return 34; // blue
   default:
-    return 37;
+    return 37; // white
   }
 }
 
