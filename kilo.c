@@ -41,6 +41,8 @@ enum editorKey {
 enum editorHighlight {
   HL_NORMAL = 0,
   HL_COMMENT,
+  HL_KEYWORD1,
+  HL_KEYWORD2,
   HL_STRING,
   HL_NUMBER,
   HL_MATCH,
@@ -54,6 +56,7 @@ enum editorHighlight {
 struct editorSyntax {
   char *filetype;
   char **filematch;
+  char **keywords;
   char *singleline_comment_start;
   int flags;
 };
@@ -88,11 +91,20 @@ struct editorConfig E;
 /*** filetypes ***/
 
 char *C_HL_extensions[] = {".c", ".h", ".cpp", NULL};
+char *C_HL_keywords[] = {
+    "switch",    "if",      "while",   "for",    "break",
+    "continue",  "return",  "else",    "struct", "union",
+    "typedef",   "static",  "enum",    "class",  "case",
+
+    "int|",      "long|",   "double|", "float|", "char|",
+    "unsigned|", "signed|", "void|",   NULL,
+};
 
 struct editorSyntax HLDB[] = {
     {
         "c",
         C_HL_extensions,
+        C_HL_keywords,
         "//",
         HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS,
     },
@@ -318,6 +330,10 @@ int editorSyntaxToColor(int hl) {
   switch (hl) {
   case HL_COMMENT:
     return 36; // cyan
+  case HL_KEYWORD1:
+    return 33; // yellow
+  case HL_KEYWORD2:
+    return 32; // green
   case HL_STRING:
     return 35; // magenta
   case HL_NUMBER:
